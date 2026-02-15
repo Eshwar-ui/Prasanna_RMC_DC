@@ -399,464 +399,481 @@ class _ChallanFormScreenState extends State<ChallanFormScreen> {
           ),
         ],
       ),
-      body: Form(
-        key: _formKey,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header with Logo
-              Card(
-                elevation: 2,
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        'assets/images/prasanna_rmc_logo.png',
-                        width: 150,
-                        height: 75,
-                        errorBuilder: (context, error, stackTrace) {
-                          return const Icon(
-                            Icons.local_shipping,
-                            size: 48,
-                            color: Colors.blue,
-                          );
-                        },
-                      ),
-                      const SizedBox(width: 16),
-                      const Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'PRASANNA RMC',
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'READY MIX CONCRETE',
-                              style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'Srisailam Highway, Peddapur Vill., Veldanda Mdl., Nagarkurnool - 509360',
-                              style: TextStyle(
-                                fontSize: 11,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-
-              // Top Section
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      Row(
+      body: Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width * 0.5,
+          child: Form(
+            key: _formKey,
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  // Header with Logo
+                  Card(
+                    elevation: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
                         children: [
-                          Expanded(
-                            flex: 2,
-                            child: TextFormField(
-                              controller: _toController,
-                              decoration: const InputDecoration(
-                                labelText: 'To',
-                                border: OutlineInputBorder(),
-                              ),
-                              validator: (v) =>
-                                  v?.isEmpty ?? true ? 'Required' : null,
-                            ),
+                          Image.asset(
+                            'assets/images/prasanna_rmc_logo.png',
+                            width: 150,
+                            height: 75,
+                            errorBuilder: (context, error, stackTrace) {
+                              return const Icon(
+                                Icons.local_shipping,
+                                size: 48,
+                                color: Colors.blue,
+                              );
+                            },
                           ),
                           const SizedBox(width: 16),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _dateController,
-                              decoration: const InputDecoration(
-                                labelText: 'Date',
-                                border: OutlineInputBorder(),
-                                suffixIcon: Icon(Icons.calendar_today),
-                              ),
-                              validator: (v) =>
-                                  v?.isEmpty ?? true ? 'Required' : null,
-                              onTap: () async {
-                                final date = await showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2000),
-                                  lastDate: DateTime(2100),
-                                );
-                                if (date != null) {
-                                  _dateController.text = DateFormat(
-                                    'dd/MM/yyyy',
-                                  ).format(date);
-                                }
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: _invoiceNoController,
-                              decoration: const InputDecoration(
-                                labelText: 'Invoice No.',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _dcNoController,
-                              decoration: const InputDecoration(
-                                labelText: 'D.C. No.',
-                                border: OutlineInputBorder(),
-                              ),
-                              validator: (v) =>
-                                  v?.isEmpty ?? true ? 'Required' : null,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: _refNameController,
-                              decoration: const InputDecoration(
-                                labelText: 'Ref Name',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _cellNoController,
-                              decoration: const InputDecoration(
-                                labelText: 'Cell No.',
-                                border: OutlineInputBorder(),
-                                prefixIcon: Icon(Icons.phone),
-                              ),
-                              keyboardType: TextInputType.phone,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: _gradeController,
-                              decoration: const InputDecoration(
-                                labelText: 'Grade of Concrete',
-                                border: OutlineInputBorder(),
-                              ),
-                              validator: (v) =>
-                                  v?.isEmpty ?? true ? 'Required' : null,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _purchaseOrderNoController,
-                              decoration: const InputDecoration(
-                                labelText: 'Purchase Order No.',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 24),
-
-              // Table Section
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Goods Dispatched',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          ElevatedButton.icon(
-                            onPressed: _addNewItem,
-                            icon: const Icon(Icons.add),
-                            label: const Text('Add Row'),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: DataTable(
-                          border: TableBorder.all(),
-                          columns: const [
-                            DataColumn(label: Text('Vehicle\nNumber')),
-                            DataColumn(label: Text('Time of\nRemoval')),
-                            DataColumn(label: Text('Grade of\nConcrete')),
-                            DataColumn(label: Text('Qty in\nCubic Met')),
-                            DataColumn(label: Text('Total Qty in\nCubic Met')),
-                            DataColumn(label: Text('Pump')),
-                            DataColumn(label: Text('Dump')),
-                            DataColumn(label: Text('Actions')),
-                          ],
-                          rows: _itemControllers.asMap().entries.map((entry) {
-                            final index = entry.key;
-                            final controller = entry.value;
-                            return DataRow(
-                              cells: [
-                                DataCell(
-                                  _buildTableField(controller.vehicleNumber),
-                                ),
-                                DataCell(
-                                  _buildTableField(controller.timeOfRemoval),
-                                ),
-                                DataCell(
-                                  _buildTableField(controller.gradeOfConcrete),
-                                ),
-                                DataCell(
-                                  _buildTableField(controller.qtyInCubicMet),
-                                ),
-                                DataCell(
-                                  _buildTableField(
-                                    controller.totalQtyInCubicMet,
+                          const Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'PRASANNA RMC',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                DataCell(_buildTableField(controller.pump)),
-                                DataCell(_buildTableField(controller.dump)),
-                                DataCell(
-                                  IconButton(
-                                    icon: const Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                    ),
-                                    onPressed: () => _removeItem(index),
+                                SizedBox(height: 4),
+                                Text(
+                                  'READY MIX CONCRETE',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                SizedBox(height: 4),
+                                Text(
+                                  'Srisailam Highway, Peddapur Vill., Veldanda Mdl., Nagarkurnool - 509360',
+                                  style: TextStyle(
+                                    fontSize: 11,
+                                    color: Colors.grey,
                                   ),
                                 ),
                               ],
-                            );
-                          }).toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+
+                  // Top Section
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                flex: 2,
+                                child: TextFormField(
+                                  controller: _toController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'To',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  validator: (v) =>
+                                      v?.isEmpty ?? true ? 'Required' : null,
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _dateController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Date',
+                                    border: OutlineInputBorder(),
+                                    suffixIcon: Icon(Icons.calendar_today),
+                                  ),
+                                  validator: (v) =>
+                                      v?.isEmpty ?? true ? 'Required' : null,
+                                  onTap: () async {
+                                    final date = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(2000),
+                                      lastDate: DateTime(2100),
+                                    );
+                                    if (date != null) {
+                                      _dateController.text = DateFormat(
+                                        'dd/MM/yyyy',
+                                      ).format(date);
+                                    }
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _invoiceNoController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Invoice No.',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _dcNoController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'D.C. No.',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  validator: (v) =>
+                                      v?.isEmpty ?? true ? 'Required' : null,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _refNameController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Ref Name',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _cellNoController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Cell No.',
+                                    border: OutlineInputBorder(),
+                                    prefixIcon: Icon(Icons.phone),
+                                  ),
+                                  keyboardType: TextInputType.phone,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _gradeController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Grade of Concrete',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  validator: (v) =>
+                                      v?.isEmpty ?? true ? 'Required' : null,
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _purchaseOrderNoController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Purchase Order No.',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // Table Section
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text(
+                                'Goods Dispatched',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              ElevatedButton.icon(
+                                onPressed: _addNewItem,
+                                icon: const Icon(Icons.add),
+                                label: const Text('Add Row'),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: DataTable(
+                              border: TableBorder.all(),
+                              columns: const [
+                                DataColumn(label: Text('Vehicle\nNumber')),
+                                DataColumn(label: Text('Time of\nRemoval')),
+                                DataColumn(label: Text('Grade of\nConcrete')),
+                                DataColumn(label: Text('Qty in\nCubic Met')),
+                                DataColumn(
+                                  label: Text('Total Qty in\nCubic Met'),
+                                ),
+                                DataColumn(label: Text('Pump')),
+                                DataColumn(label: Text('Dump')),
+                                DataColumn(label: Text('Actions')),
+                              ],
+                              rows: _itemControllers.asMap().entries.map((
+                                entry,
+                              ) {
+                                final index = entry.key;
+                                final controller = entry.value;
+                                return DataRow(
+                                  cells: [
+                                    DataCell(
+                                      _buildTableField(
+                                        controller.vehicleNumber,
+                                      ),
+                                    ),
+                                    DataCell(
+                                      _buildTableField(
+                                        controller.timeOfRemoval,
+                                      ),
+                                    ),
+                                    DataCell(
+                                      _buildTableField(
+                                        controller.gradeOfConcrete,
+                                      ),
+                                    ),
+                                    DataCell(
+                                      _buildTableField(
+                                        controller.qtyInCubicMet,
+                                      ),
+                                    ),
+                                    DataCell(
+                                      _buildTableField(
+                                        controller.totalQtyInCubicMet,
+                                      ),
+                                    ),
+                                    DataCell(_buildTableField(controller.pump)),
+                                    DataCell(_buildTableField(controller.dump)),
+                                    DataCell(
+                                      IconButton(
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                        ),
+                                        onPressed: () => _removeItem(index),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 24),
+
+                  // Bottom Section
+                  Card(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _driverNameController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Driver Name',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _driverCellNoController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Driver Cell No.',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                  keyboardType: TextInputType.phone,
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _amountController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Amount',
+                                    border: OutlineInputBorder(),
+                                    prefixText: '₹ ',
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _tmGateOutKmsController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'TM GATE OUT KMS',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _siteInTimeController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Site in Time',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _sgstController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'SGST %',
+                                    border: OutlineInputBorder(),
+                                    suffixText: '%',
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _tmGateInKmsController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'TM GATE IN KMS',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _siteOutTimeController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Site Out Time',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _cgstController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'CGST %',
+                                    border: OutlineInputBorder(),
+                                    suffixText: '%',
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            children: [
+                              const Expanded(flex: 2, child: SizedBox()),
+                              Expanded(
+                                child: TextFormField(
+                                  controller: _grandTotalController,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Grand Total Rs.',
+                                    border: OutlineInputBorder(),
+                                    prefixText: '₹ ',
+                                  ),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                  keyboardType: TextInputType.number,
+                                  validator: (v) =>
+                                      v?.isEmpty ?? true ? 'Required' : null,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 32),
+
+                  // Generate PDF Button
+                  Center(
+                    child: SizedBox(
+                      width: 300,
+                      height: 56,
+                      child: ElevatedButton.icon(
+                        onPressed: _isGenerating ? null : _generatePDF,
+                        icon: _isGenerating
+                            ? const SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Icon(Icons.picture_as_pdf, size: 28),
+                        label: Text(
+                          _isGenerating
+                              ? 'Generating...'
+                              : 'GENERATE PDF (3 Copies)',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 24),
-
-              // Bottom Section
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: _driverNameController,
-                              decoration: const InputDecoration(
-                                labelText: 'Driver Name',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _driverCellNoController,
-                              decoration: const InputDecoration(
-                                labelText: 'Driver Cell No.',
-                                border: OutlineInputBorder(),
-                              ),
-                              keyboardType: TextInputType.phone,
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _amountController,
-                              decoration: const InputDecoration(
-                                labelText: 'Amount',
-                                border: OutlineInputBorder(),
-                                prefixText: '₹ ',
-                              ),
-                              keyboardType: TextInputType.number,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: _tmGateOutKmsController,
-                              decoration: const InputDecoration(
-                                labelText: 'TM GATE OUT KMS',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _siteInTimeController,
-                              decoration: const InputDecoration(
-                                labelText: 'Site in Time',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _sgstController,
-                              decoration: const InputDecoration(
-                                labelText: 'SGST %',
-                                border: OutlineInputBorder(),
-                                suffixText: '%',
-                              ),
-                              keyboardType: TextInputType.number,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: _tmGateInKmsController,
-                              decoration: const InputDecoration(
-                                labelText: 'TM GATE IN KMS',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _siteOutTimeController,
-                              decoration: const InputDecoration(
-                                labelText: 'Site Out Time',
-                                border: OutlineInputBorder(),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _cgstController,
-                              decoration: const InputDecoration(
-                                labelText: 'CGST %',
-                                border: OutlineInputBorder(),
-                                suffixText: '%',
-                              ),
-                              keyboardType: TextInputType.number,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        children: [
-                          const Expanded(flex: 2, child: SizedBox()),
-                          Expanded(
-                            child: TextFormField(
-                              controller: _grandTotalController,
-                              decoration: const InputDecoration(
-                                labelText: 'Grand Total Rs.',
-                                border: OutlineInputBorder(),
-                                prefixText: '₹ ',
-                              ),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              ),
-                              keyboardType: TextInputType.number,
-                              validator: (v) =>
-                                  v?.isEmpty ?? true ? 'Required' : null,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 32),
-
-              // Generate PDF Button
-              Center(
-                child: SizedBox(
-                  width: 300,
-                  height: 56,
-                  child: ElevatedButton.icon(
-                    onPressed: _isGenerating ? null : _generatePDF,
-                    icon: _isGenerating
-                        ? const SizedBox(
-                            width: 24,
-                            height: 24,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2,
-                              color: Colors.white,
-                            ),
-                          )
-                        : const Icon(Icons.picture_as_pdf, size: 28),
-                    label: Text(
-                      _isGenerating
-                          ? 'Generating...'
-                          : 'GENERATE PDF (3 Copies)',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
                     ),
                   ),
-                ),
-              ),
 
-              const SizedBox(height: 32),
-            ],
+                  const SizedBox(height: 32),
+                ],
+              ),
+            ),
           ),
         ),
       ),

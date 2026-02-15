@@ -149,6 +149,7 @@ class _SplashScreenState extends State<SplashScreen> with WindowListener {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,

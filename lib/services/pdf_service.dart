@@ -64,8 +64,11 @@ class PDFService {
     const double margin = 0;
     double y = margin;
 
-    // Fonts
-    final PdfFont bodyFont = PdfStandardFont(PdfFontFamily.helvetica, 9);
+    // Fonts - Improved typography with better hierarchy
+    // Regular fonts
+    final PdfFont bodyFont = PdfStandardFont(PdfFontFamily.helvetica, 10);
+
+    // Bold fonts for emphasis
     final PdfFont bold9 = PdfStandardFont(
       PdfFontFamily.helvetica,
       9,
@@ -76,6 +79,18 @@ class PDFService {
       10,
       style: PdfFontStyle.bold,
     );
+    final PdfFont bold11 = PdfStandardFont(
+      PdfFontFamily.helvetica,
+      11,
+      style: PdfFontStyle.bold,
+    );
+    final PdfFont bold12 = PdfStandardFont(
+      PdfFontFamily.helvetica,
+      12,
+      style: PdfFontStyle.bold,
+    );
+
+    // Special fonts
     final PdfFont underlined = PdfStandardFont(
       PdfFontFamily.helvetica,
       10,
@@ -189,9 +204,6 @@ class PDFService {
       // VEHICLE/DELIVERY INFO
       const double row1X = 20;
       const double row1Y = 300;
-      const double vehicleX = 20;
-      const double vehicleNumberY = 400; // "Vehicle Number" field
-      const double timeOfRemovalY = 400; // "Time of Removal" field
 
       // DRIVER INFO
       const double driverX = 80;
@@ -226,46 +238,41 @@ class PDFService {
       // DRAW VALUES ON TEMPLATE
       // ═══════════════════════════════════════════════════════════════
 
-      // Customer "To" field - 3 lines
+      // Customer "To" field - 3 lines (bold for emphasis)
       List<String> toLines = splitIntoLines(challan.to, 40);
       if (toLines.isNotEmpty)
-        drawTextOnTemplate(toLines[0], bodyFont, leftColX, toY1);
+        drawTextOnTemplate(toLines[0], bold10, leftColX, toY1);
       if (toLines.length > 1)
-        drawTextOnTemplate(toLines[1], bodyFont, leftColX, toY2);
+        drawTextOnTemplate(toLines[1], bold10, leftColX, toY2);
       if (toLines.length > 2)
-        drawTextOnTemplate(toLines[2], bodyFont, leftColX, toY3);
+        drawTextOnTemplate(toLines[2], bold10, leftColX, toY3);
 
-      // Ref. Name
-      drawTextOnTemplate(challan.refName, bodyFont, leftColX + 50, refNameY);
+      // Ref. Name (bold)
+      drawTextOnTemplate(challan.refName, bold10, leftColX + 50, refNameY);
 
-      // Cell No.
-      drawTextOnTemplate(challan.cellNo, bodyFont, leftColX + 50, cellNoY);
+      // Cell No. (bold)
+      drawTextOnTemplate(challan.cellNo, bold10, leftColX + 50, cellNoY);
 
-      // Right column: Date, Invoice No., D.C. No.
-      drawTextOnTemplate(challan.date, bodyFont, rightColX, dateY);
-      drawTextOnTemplate(
-        challan.invoiceNo,
-        bodyFont,
-        rightColX + 30,
-        invoiceNoY,
-      );
-      drawTextOnTemplate(challan.dcNo, bodyFont, rightColX + 20, dcNoY);
+      // Right column: Date, Invoice No., D.C. No. (bold for important info)
+      drawTextOnTemplate(challan.date, bold10, rightColX, dateY);
+      drawTextOnTemplate(challan.invoiceNo, bold11, rightColX + 30, invoiceNoY);
+      drawTextOnTemplate(challan.dcNo, bold11, rightColX + 20, dcNoY);
 
-      // Body text fields
-      drawTextOnTemplate(challan.grade, bodyFont, gradeX, gradeY);
+      // Body text fields (bold for important values)
+      drawTextOnTemplate(challan.grade, bold11, gradeX, gradeY);
       drawTextOnTemplate(
         challan.purchaseOrderNo,
-        bodyFont,
+        bold10,
         purchaseOrderX,
         purchaseOrderY,
       );
 
       // Vehicle/Delivery info (from first item)
-      // Draw first row
+      // Draw first row - use bold for quantities and important values
       if (challan.items.isNotEmpty) {
         drawTextOnTemplate(
           challan.items[0].vehicleNumber,
-          bodyFont,
+          bold10,
           row1X,
           row1Y,
         );
@@ -277,19 +284,19 @@ class PDFService {
         );
         drawTextOnTemplate(
           challan.items[0].gradeOfConcrete,
-          bodyFont,
+          bold10,
           row1X + 130,
           row1Y,
         );
         drawTextOnTemplate(
           challan.items[0].qtyInCubicMet,
-          bodyFont,
+          bold10,
           row1X + 180,
           row1Y,
         );
         drawTextOnTemplate(
           challan.items[0].totalQtyInCubicMet,
-          bodyFont,
+          bold11,
           row1X + 250,
           row1Y,
         );
@@ -302,7 +309,7 @@ class PDFService {
           double currentY = row1Y + i * rowSpacing;
           drawTextOnTemplate(
             challan.items[i].vehicleNumber,
-            bodyFont,
+            bold10,
             row1X,
             currentY,
           );
@@ -314,19 +321,19 @@ class PDFService {
           );
           drawTextOnTemplate(
             challan.items[i].gradeOfConcrete,
-            bodyFont,
+            bold10,
             row1X + 130,
             currentY,
           );
           drawTextOnTemplate(
             challan.items[i].qtyInCubicMet,
-            bodyFont,
+            bold10,
             row1X + 180,
             currentY,
           );
           drawTextOnTemplate(
             challan.items[i].totalQtyInCubicMet,
-            bodyFont,
+            bold11,
             row1X + 250,
             currentY,
           );
@@ -345,49 +352,44 @@ class PDFService {
         }
       }
 
-      // Driver info
-      drawTextOnTemplate(challan.driverName, bodyFont, driverX, driverNameY);
+      // Driver info (bold for names and numbers)
+      drawTextOnTemplate(challan.driverName, bold10, driverX, driverNameY);
       drawTextOnTemplate(
         challan.driverCellNo,
-        bodyFont,
+        bold10,
         driverCellNoX,
         driverCellNoY,
       );
 
-      // Gate & Site details
+      // Gate & Site details (bold for important values)
       drawTextOnTemplate(
         challan.tmGateOutKms,
-        bodyFont,
+        bold10,
         gateLeftX + 10,
         tmGateOutY,
       );
-      drawTextOnTemplate(challan.tmGateInKms, bodyFont, gateLeftX, tmGateInY);
-      drawTextOnTemplate(challan.siteInTime, bodyFont, gateRightX, siteInTimeY);
-      drawTextOnTemplate(
-        challan.siteOutTime,
-        bodyFont,
-        gateRightX,
-        siteOutTimeY,
-      );
+      drawTextOnTemplate(challan.tmGateInKms, bold10, gateLeftX, tmGateInY);
+      drawTextOnTemplate(challan.siteInTime, bold10, gateRightX, siteInTimeY);
+      drawTextOnTemplate(challan.siteOutTime, bold10, gateRightX, siteOutTimeY);
 
-      // Amount details
+      // Amount details (bold and larger for financial information)
       double totalQty = 0;
       for (var item in challan.items) {
         final qty = double.tryParse(item.totalQtyInCubicMet) ?? 0;
         totalQty += qty;
       }
-      String totalQtyStr = totalQty > 0 ? totalQty.toStringAsFixed(2) : '';
+      // String totalQtyStr = totalQty > 0 ? totalQty.toStringAsFixed(2) : '';
 
-      drawTextOnTemplate(totalQtyStr, bodyFont, amountX, totalQtyY);
-      drawTextOnTemplate(challan.amount, bodyFont, amountX, amountY);
-      drawTextOnTemplate('${challan.sgst}%', bodyFont, amountX, sgstY);
-      drawTextOnTemplate('${challan.cgst}%', bodyFont, amountX, cgstY);
-      drawTextOnTemplate(challan.grandTotal, bodyFont, amountX, grandTotalY);
+      // drawTextOnTemplate(totalQtyStr, bold11, amountX, totalQtyY);
+      drawTextOnTemplate(challan.amount, bold11, amountX, amountY);
+      drawTextOnTemplate('${challan.sgst}%', bold10, amountX, sgstY);
+      drawTextOnTemplate('${challan.cgst}%', bold10, amountX, cgstY);
+      drawTextOnTemplate(challan.grandTotal, bold12, amountX, grandTotalY);
 
-      // Footer fields
-      drawTextOnTemplate(challan.date, bodyFont, footerX, footerDateY);
-      drawTextOnTemplate(challan.invoiceNo, bodyFont, footerX, footerInvoiceY);
-      drawTextOnTemplate(challan.dcNo, bodyFont, footerX, footerDcNoY);
+      // Footer fields (bold for important reference numbers)
+      drawTextOnTemplate(challan.date, bold10, footerX, footerDateY);
+      drawTextOnTemplate(challan.invoiceNo, bold11, footerX, footerInvoiceY);
+      drawTextOnTemplate(challan.dcNo, bold11, footerX, footerDcNoY);
 
       // Save and return the PDF
       final List<int> bytes = await document.save();
